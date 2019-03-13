@@ -47,11 +47,19 @@ char calcStats()
 			}
 			
 			Club[c].num_Goals = sum_numGoals;
-			Club[c].avg_speed = sum_speed/(float)found_player;
-			Club[c].avg_defense = sum_defense/(float)found_player;
-			Club[c].avg_assist = sum_assist/(float)found_player;
-			Club[c].rank = (float)Club[c].num_Goals + Club[c].avg_speed + Club[c].avg_defense + Club[c].avg_assist ; 
+			Club[c].avg_speed = sum_speed/found_player;
+			Club[c].avg_defense = sum_defense/found_player;
+			Club[c].avg_assist = sum_assist/found_player;
+			Club[c].rank = Club[c].num_Goals + Club[c].avg_speed + Club[c].avg_defense + Club[c].avg_assist ; 
 		} 
+		if ( (found_player == 0) && (p == CLUB_PLAYERS) )
+		{
+			Club[c].num_Goals = 0;
+			Club[c].avg_speed = 0;
+			Club[c].avg_defense = 0;
+			Club[c].avg_assist = 0;
+			Club[c].rank = 0 ; 
+		}
 			
 	}
 	return found_club ;

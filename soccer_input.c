@@ -254,17 +254,28 @@ void chooseClub(char p)
 
 void deletePlayer()
 {
-	int key;
+	char n,j,m;
+	char key;
 	char ACK = 'K';
-	printf("\n\n\tEnter the player's ID: ");
+	printf("\n\n\tChoose a Player to delete: ");
+	
+	for ( j = 0 ; j < PLAYERS_ARRAY_SIZE ; j++)
+	{
+		if (Player[j].ID != -1)
+		{
+			printf("\n\n\t[%d]  %s",j+1,Player[j].name);
+		}
+	}
+	
+	printf("\n\n\n\t\tEnter your choice --> ");
 	scanf("%d",&key);
 	key--;
-	if(key >= 0 && key < players_array_size)
+	if( (key >= 0) && (key < PLAYERS_ARRAY_SIZE) ) /* Display all players to let the user choose from them*/
 	{
-		if(Player[key].ID != -1)
+		if(Player[key].ID != -1)  
 		{
-			printf(" Name: %s \n Weight: %d \n Height: %f \n Defense: %f % \n Number Of Goals: %d \n Speed: %f \n Assists: %f \n Rank: %f \n Club: %s\n", Player[c].name , Player[c].weight , Player[c].height , Player[c].defense , Player[c].num_Goals , Player[c].speed , Player[c].assist , Player[c].rank ,Club[Player[c].club_ID].name);
-			printf("ARE YOU SHURE ? \n Press y to delete, n to cancel");
+			printf(" Name: %s \n Weight: %d \n Height: %f \n Defense: %f % \n Number Of Goals: %d \n Speed: %f \n Assists: %f \n Rank: %f \n Club: %s\n", Player[key].name , Player[key].weight , Player[key].height , Player[key].defense , Player[key].num_Goals , Player[key].speed , Player[key].assist , Player[key].rank ,Club[Player[key].club_ID].name);
+			printf("ARE YOU SURE ? \n Press y to delete, n to cancel");
 			while (1)
 			{
 				ACK=getch();
@@ -275,7 +286,17 @@ void deletePlayer()
 			}
 			if(ACK == 'y'|| ACK=='Y')
 			{
-				Player[key].ID = -1;
+				for ( m = 0 ; m < CLUB_PLAYERS ; m++ )  /* Loop over all club players*/
+				{
+					if (Club[Player[key].club_ID].players_ID[m] == Player[key].ID )  /* searching for player's Id in club players */
+					{
+						
+						Club[Player[key].club_ID].players_ID[m]= -1; /*Delete the player from club, remove his ID from club players*/
+					}
+				}
+				
+				Player[key].ID = -1;  /* Put player's ID -1 , delete player */
+				
 				return;
 			}
 			return;
@@ -294,18 +315,29 @@ void deletePlayer()
 
 void deleteClub()
 {
-	int key,i,temp;
+	char key,i,temp, ch;
+	char j, m, n;
 	char ACK = 'K';
-	printf("\n\n\tEnter the club's ID: ");
+	printf("\n\n\tChoose a Club to delete: ");
+	
+	for ( j = 0 ; j < CLUBS_ARRAY_SIZE ; j++)  /* Display all clubs to let the user choose from them*/
+	{
+		if (Club[j].ID != -1)
+		{
+			printf("\n\n\t[%d]  %s",j+1,Club[j].name);
+		}
+	}
+	
+	printf("\n\n\n\t\tEnter your choice --> ");
 	scanf("%d",&key);
 	key--;
-	if(key >= 0 && key < clubs_array_size)
+	if(key >= 0 && key < CLUBS_ARRAY_SIZE) 
 	{
 		if(Club[key].ID != -1)
 		{
 			printf(" Name: %s \n Number Of Goals: %d \n Rank: %f\n" , Club[key].name , Club[key].num_Goals , Club[key].rank);
 			printf(" ~~~~~~~~ Team Members ~~~~~~~~\n\n");
-			for( i = 0 ; i < CLUB_PLAYERS ; i++)
+			for( i = 0 ; i < CLUB_PLAYERS ; i++)  
 			{
 				temp = Club[key]. players_ID[i];
 				if(temp != -1)
@@ -313,7 +345,7 @@ void deleteClub()
 					printf(" %d - %s \n", i+1 , Player[temp].name);
 				}
 			}	
-			printf("ARE YOU SHURE, you want to delete the club and the players ? \n Press y to delete, n to cancel");
+			printf("ARE YOU SURE, you want to delete the club and the players ? \n Press y to delete, n to cancel");
 			while (1)
 			{
 				ACK=getch();
@@ -324,22 +356,22 @@ void deleteClub()
 			}
 			if(ACK == 'y'|| ACK=='Y')
 			{
-				for( i = 0 ; i < CLUB_PLAYERS ; i++)
+				for( i = 0 ; i < CLUB_PLAYERS ; i++) /* Loop over all club players*/
 				{
-					temp = Club[key]. players_ID[i];
-					if(temp != -1)
+					temp = Club[key]. players_ID[i];  /* Get Player ID*/
+					if(temp != -1)    /* Found a Player*/
 					{
-						Player[temp].ID=-1;
+						Player[temp].ID=-1;   /* Delete player from Players array*/
 					}
 				}
-				Club [key].ID = -1;
+				Club[key].ID = -1;  /* Delete club from clubs array*/
 				return;
 			}
 			return;
 		}
 		else
 		{
-			printf("No Such a Player/n");
+			printf("No Such a Club/n");
 		}
 	}
 	else
@@ -500,6 +532,7 @@ void deletePlayer()
 					 Player[n-1].club_ID = Player[n].club_ID;
 					 Player[n-1].rank = Player[n].rank;
 				 }
+				 
 				return;
 			}
 			return;
@@ -515,7 +548,7 @@ void deletePlayer()
 	}
 	
 }
-
+*/
 char validateName( char * chPtr)
 {
 	
@@ -560,5 +593,5 @@ char validateName( char * chPtr)
 		}
 	}
 	return 1;
-}*/
+}
 

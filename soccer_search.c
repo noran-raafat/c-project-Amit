@@ -421,7 +421,9 @@ void printPlayerID(char key)
 	{
 		if(Player[key].ID != -1)
 		{
+			printf("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
 			printf(" Name: %s \n Weight: %d \n Height: %f \n Defense: %f % \n Number Of Goals: %d \n Speed: %f \n Assists: %f \n Rank: %f \n Club: %s\n", Player[key].name , Player[key].weight , Player[key].height , Player[key].defense , Player[key].num_Goals , Player[key].speed , Player[key].assist , Player[key].rank ,Club[Player[key].club_ID].name);
+			
 		}
 		else
 		{
@@ -479,7 +481,7 @@ void printClubID(char key)
 	{
 		if(Club[key].ID != -1)
 		{
-			printf(" Name: %s \n Number Of Goals: %d \n Rank: %d\n" , Club[key].name , Club[key].num_Goals , Club[key].rank);
+			printf(" Name: %s \n Number Of Goals: %d \n Rank: %f\n" , Club[key].name , Club[key].num_Goals , Club[key].rank);
 			printf(" ~~~~~~~~ Team Members ~~~~~~~~\n\n");
 			for( i = 0 ; i < CLUB_PLAYERS ; i++)
 			{
